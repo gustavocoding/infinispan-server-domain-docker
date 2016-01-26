@@ -6,12 +6,12 @@ CUR_DIR="$PWD"
 
 function run_master()
 {
-  echo "$(docker run -it --name master -h master -d gustavonalle/infinispan-server-test)"
+  echo "$(docker run -it --name master -h master -d gustavonalle/infinispan-server-domain)"
 }
 
 function run_slave()
 {
-  echo "$(docker run -it --name $1 -h $1 --link master:master -d gustavonalle/infinispan-server-test)"
+  echo "$(docker run -it --name $1 -h $1 --link master:master -d gustavonalle/infinispan-server-domain)"
 }
 
 function ip()
