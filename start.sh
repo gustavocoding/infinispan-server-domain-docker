@@ -8,10 +8,11 @@ if [ -n "${MASTER_PORT_9990_TCP_ADDR}" ]; then
 else
   DOMAIN=""
   START=1
-  for (( c=$START; c<=$SLAVES-1; c++)) 
+  /opt/jboss/infinispan-server/bin/add-user.sh -u admin -p admin 
+  for (( c=$START; c<=$SLAVES; c++)) 
    do
     echo "Creating user for slave $c"
-    /opt/jboss/infinispan-server/bin/add-user.sh -u slave$1 -p slave$1 
+    /opt/jboss/infinispan-server/bin/add-user.sh -u slave$c -p slave$c 
    done
 fi
 
