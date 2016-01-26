@@ -36,7 +36,7 @@ Credentials are admin/admin
 To be able to reach the containers by their IP directly, the following route can be added: 
 
 ```
-sudo route -n add 172.17.0.0./16 `docker-machine ip default`
+sudo route -n add 172.17.0.0/16 `docker-machine ip default`
 
 ``` 
 
