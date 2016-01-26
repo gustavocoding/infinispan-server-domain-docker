@@ -18,7 +18,7 @@ docker run -it --link master:master -h slave2 gustavonalle/infinispan-server-dom
 docker run -it --link master:master -h slave3 gustavonalle/infinispan-server-domain
 ```
 
-To access the admin console, first obtain the master ip:
+To access the admin console, first obtain the master IP:
 ```
 docker inspect --format '{{ .NetworkSettings.IPAddress }}' master
 ```
@@ -33,7 +33,7 @@ Credentials are admin/admin
 ### MacOS users only
 
 
-To be able to reach container by their ip directly, the following route can be added: 
+To be able to reach the containers by their IP directly, the following route can be added: 
 
 ```
 sudo route -n add 172.17.0.0./16 `docker-machine ip default`
