@@ -7,6 +7,12 @@ if [ -n "${MASTER_PORT_9990_TCP_ADDR}" ]; then
   BASE=$(echo -n $HOSTNAME | base64) && sed -i "s/\<secret value=.*/secret value=\"$BASE\" \/>/" /opt/jboss/infinispan-server/domain/configuration/host-slave.xml
 else
   DOMAIN=""
+  START=1
+  for (( c=$START; c<=$SLAVES-1; c++)) 
+   do
+    echo "Creating user for slave $c"
+    /opt/jboss/infinispan-server/bin/add-user.sh -u slave$1 -p slave$1 
+   done
 fi
 
 
