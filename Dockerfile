@@ -21,6 +21,7 @@ RUN yum -y install telnet iproute && yum clean all
 
 RUN sed -i '/other-server-group/,+6d' /opt/jboss/infinispan-server/domain/configuration/host.xml
 RUN sed -i '/other-server-group/,+6d' /opt/jboss/infinispan-server/domain/configuration/host-slave.xml
+RUN sed -i '/server-two/,+6d' /opt/jboss/infinispan-server/domain/configuration/host.xml
 
 # Expose Infinispan server  ports 
 EXPOSE 57600 7600 8080 8181 9990 11211 11222 
