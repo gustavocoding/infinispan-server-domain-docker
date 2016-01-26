@@ -1,7 +1,7 @@
 #!/bin/bash
 set -e
 
-N=${1:-2}
+N=${1:-3}
 CUR_DIR="$PWD"
 
 function run_master()
