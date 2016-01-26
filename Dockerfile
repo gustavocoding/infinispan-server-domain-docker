@@ -17,7 +17,7 @@ COPY start.sh /opt/jboss/infinispan-server/bin/
 
 USER root
 
-RUN yum -y install telnet && yum clean all
+RUN yum -y install telnet iproute && yum clean all
 
 RUN sed -i '/other-server-group/,+6d' /opt/jboss/infinispan-server/domain/configuration/host.xml
 RUN sed -i '/other-server-group/,+6d' /opt/jboss/infinispan-server/domain/configuration/host-slave.xml
