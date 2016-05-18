@@ -1,23 +1,26 @@
-# Use latest jboss/base-jdk:8 image as the base
-FROM jboss/base-jdk:8
+FROM alpine:3.3
+
+MAINTAINER gustavonalle
 
 # Set the INFINISPAN_SERVER_HOME env variable
 ENV INFINISPAN_SERVER_HOME /opt/jboss/infinispan-server
 
 # Set the INFINISPAN_VERSION env variable
-ENV INFINISPAN_VERSION 9.0.0.Alpha1 
+ENV INFINISPAN_VERSION 9.0.0.Alpha2
 
 ENV DOMAIN_USER admin 
 ENV DOMAIN_PASS admin
 
-# Download and unzip Infinispan server
-RUN cd $HOME && curl "https://repo1.maven.org/maven2/org/infinispan/server/infinispan-server-build/$INFINISPAN_VERSION/infinispan-server-build-$INFINISPAN_VERSION.zip" | bsdtar -xf - && mv $HOME/infinispan-server-$INFINISPAN_VERSION $HOME/infinispan-server && chmod +x /opt/jboss/infinispan-server/bin/*.sh
+ENV HOME /opt/jboss
+
+RUN echo "http://dl-4.alpinelinux.org/alpine/edge/community" >> /etc/apk/repositories \
+   && apk add --update curl openjdk8 bash && rm /var/cache/apk/*
+
+RUN mkdir -p $HOME && cd $HOME && curl -o $HOME/infinispan.zip "https://repo1.maven.org/maven2/org/infinispan/server/infinispan-server-build/$INFINISPAN_VERSION/infinispan-server-build-$INFINISPAN_VERSION.zip" && unzip infinispan.zip && mv $HOME/infinispan-server-$INFINISPAN_VERSION $HOME/infinispan-server && rm infinispan.zip
 
 COPY start.sh /opt/jboss/infinispan-server/bin/
 
 USER root
-
-RUN yum -y install telnet iproute && yum clean all
 
 RUN sed -i '/other-server-group/,+6d' /opt/jboss/infinispan-server/domain/configuration/host.xml
 RUN sed -i '/other-server-group/,+6d' /opt/jboss/infinispan-server/domain/configuration/host-slave.xml

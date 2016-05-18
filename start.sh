@@ -1,6 +1,6 @@
 #!/bin/bash
 
-IP=$(ip a s | sed -ne '/127.0.0.1/!{s/^[ \t]*inet[ \t]*\([0-9.]\+\)\/.*$/\1/p}')
+IP=$(ip addr list eth0 |grep "inet " |cut -d' ' -f6|cut -d/ -f1)
 
 if [ -n "${MASTER_PORT_9990_TCP_ADDR}" ]; then
   DOMAIN="-Djboss.domain.master.address=$MASTER_PORT_9990_TCP_ADDR --host-config=host-slave.xml"
